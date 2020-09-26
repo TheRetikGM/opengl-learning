@@ -3,17 +3,13 @@
 out vec4 FragColor;
 in vec2 TexCoord;
 
-uniform sampler2D quadTexture;
-
+uniform sampler2D texture0;
 float offset = 1.0 / 300.0;
+
+float sRGB(float x, float gamma);
 
 void main()
 {
-	// Grayscale
-	//FragColor = texture(quadTexture, TexCoord);	
-	//float avarage = 0.2126 * FragColor.r + 0.7152 * FragColor.g + 0.0722 * FragColor.b;
-	//FragColor = vec4(avarage, avarage, avarage, 1.0);
-	
 	vec2 offsets[9] = vec2[](
 		vec2(-offset, offset),	 // top-left
 		vec2(0.0, offset),		 // top-center
@@ -27,15 +23,25 @@ void main()
 	);
 
 	float kernel[9] = float[](
-		0, 0, 0,
-		0, 1, 0,
-		0, 0, 0
+		1, 1, 1,
+		1, -8, 1,
+		1, 1, 1
 	);
 
 	vec3 col = vec3(0.0);
 	for (int i = 0; i < 9; i++)
 	{
-		col += vec3(texture(quadTexture, TexCoord.st + offsets[i])) * kernel[i];
+		col += vec3(texture(texture0, TexCoord.st + offsets[i])) * kernel[i];
 	}
-	FragColor = vec4(col, 1.0);
+
+	float gamma = 2.2;	
+	//FragColor = vec4(pow(col, vec3(1.0 / gamma)), 1.0);	
+	FragColor = vec4(col, 1.0f);
+}
+float sRGB(float x, float gamma)
+{
+	if (x < 0.00031308)
+		return 12.92 * x;
+	else
+		return pow(x, 1.0/gamma) * 1.055 - 0.055;
 }

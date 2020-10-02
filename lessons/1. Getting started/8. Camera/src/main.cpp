@@ -36,7 +36,7 @@ void scroll_callback(GLFWwindow* window, double xoffset, double yoffset);
 void proccessInput(GLFWwindow* window);
 unsigned int load_texture(const char* path, bool flip = true);
 
-int main(int* argc, char** argv)
+int main(int argc, char** argv)
 {
 	if (init() != 0)
 		return -1;
@@ -153,7 +153,7 @@ int main(int* argc, char** argv)
 		myShader.setMat4("view", view);
 		myShader.setMat4("projection", projection);
 
-		for (int i = 0; i < sizeof(cubePositions) / sizeof(glm::vec3); i++)
+		for (int i = 0; (long unsigned int)i < sizeof(cubePositions) / sizeof(glm::vec3); i++)
 		{
 			glm::mat4 model(1.0f);
 			model = glm::translate(model, cubePositions[i]);

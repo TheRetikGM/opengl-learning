@@ -64,7 +64,7 @@ std::string Shader::readFile(const char* path)
 		buffer << ifs.rdbuf();		
 		out = buffer.str();		
 	}
-	catch (std::ifstream::failure e)
+	catch (std::ifstream::failure& e)
 	{
 		std::cerr << "[ERROR] Could not read/open file '" << path << "'\n";
 	}

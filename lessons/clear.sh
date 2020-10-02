@@ -15,6 +15,7 @@ for ((i=1;;i++))
 			cd "$subdir"
 			make clean > /dev/null
 			rm bin/* 2> /dev/null
+			rm -r build 2> /dev/null
 			cd ..
 			echo "done"
 		else 

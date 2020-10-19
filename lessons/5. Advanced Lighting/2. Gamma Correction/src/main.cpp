@@ -13,14 +13,14 @@
 #include "Camera.h"
 #include "Framebuffer.h"
 #include "DebugColors.h"
-#include <unistd.h>
+//#include <unistd.h>
 #include "config.h"
 
 #define WINDOW_NAME  	"2. Gamma Correction"
 #define TEXTURES_DIR	REPO_ROOT "/textures/"
-#define MODELS_DIR	REPO_ROOT "/models/"
-#define SHADERS_DIR	SOURCE_DIR "/shaders/"
-#define _IsUnused		__attribute__((__unused__))
+#define MODELS_DIR		REPO_ROOT "/models/"
+#define SHADERS_DIR		SOURCE_DIR "/shaders/"
+#define _IsUnused		__attribute__((__unused__))		// linux only
 
 using namespace std;
 typedef unsigned int uint;
@@ -177,7 +177,7 @@ int main(int argc, char** argv)
 	glBindVertexArray(0);
 
 	unsigned int wood_texture = load_texture(TEXTURES_DIR "wood/wood.png", true, true);
-	_IsUnused unsigned int wood_specular_texture = load_texture(TEXTURES_DIR "wood/wood_specular.png");
+	unsigned int wood_specular_texture = load_texture(TEXTURES_DIR "wood/wood_specular.png");
 
 	glm::vec3 lightSourcePosition(0.0f, 0.0f, 0.0f);	
 	glm::vec3 lightColor(1.0f, 1.0f, 1.0f);			

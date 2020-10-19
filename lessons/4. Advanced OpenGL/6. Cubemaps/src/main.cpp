@@ -12,15 +12,14 @@
 #include "Camera.h"
 #include "Framebuffer.h"
 #include "Model.h"
+#include "config.h"
 
-#define TEXTURES_DIR "../../../../textures/"
-#define MODELS_DIR	 "../../../../models/"
-#define SHADERS_DIR	"../src/shaders/"
+#define TEXTURES_DIR REPO_ROOT "/textures/"
+#define MODELS_DIR	 REPO_ROOT "/models/"
+#define SHADERS_DIR	 SOURCE_DIR "/shaders/"
 
 using namespace std;
 typedef unsigned int uint;
-using std::vector;
-using std::string;
 using glml::Model;
 
 // Global Constants
@@ -315,7 +314,7 @@ uint8_t init(void) {
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);	
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-	window = glfwCreateWindow(WINDOW_WIDTH, WINDOW_HEIGHT, "5. Framebuffers", NULL, NULL);
+	window = glfwCreateWindow(WINDOW_WIDTH, WINDOW_HEIGHT, "6. Cubemaps", NULL, NULL);
 	if (window == NULL) {
 		cerr << "Failed to create glfw window" << endl;
 		glfwTerminate();

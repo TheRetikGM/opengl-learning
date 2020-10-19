@@ -14,7 +14,7 @@
 #include "Framebuffer.h"
 #include "DebugColors.h"
 //#include <unistd.h>
-#include "config.h"
+#include "config.h"	// in cmake build directory (need to run 'cmake -S . -B build')
 
 #define WINDOW_NAME  	"2. Gamma Correction"
 #define TEXTURES_DIR	REPO_ROOT "/textures/"
@@ -24,9 +24,6 @@
 
 using namespace std;
 typedef unsigned int uint;
-using std::vector;
-using std::string;
-using std::for_each;
 
 //STBIWDEF int stbi_write_png(char const *filename, int x, int y, int comp, const void *data, int stride_bytes);
 

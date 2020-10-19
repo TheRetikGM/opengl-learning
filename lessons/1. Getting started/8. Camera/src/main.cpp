@@ -7,8 +7,10 @@
 #include <glm/gtc/type_ptr.hpp>
 #include "Shader.h"
 #include "Camera.h"
+#include "config.h"
 
-#define TEXTURES_DIR "../../../../textures/"
+#define TEXTURES_DIR REPO_ROOT "/textures"
+#define SHADERS_DIR SOURCE_DIR "/shaders"
 
 using namespace std;
 typedef unsigned int uint;
@@ -41,8 +43,7 @@ int main(int argc, char** argv)
 	if (init() != 0)
 		return -1;
 
-	Shader myShader("../src/shaders/vertexShader.vert", "../src/shaders/fragmentShader.frag");
-
+	Shader myShader(SHADERS_DIR "/vertexShader.vert", SHADERS_DIR "/fragmentShader.frag");	
 	float vertices[] = {
 	-0.5f, -0.5f, -0.5f,  0.0f, 0.0f,
 	 0.5f, -0.5f, -0.5f,  1.0f, 0.0f,
@@ -116,8 +117,8 @@ int main(int argc, char** argv)
 
 	glBindVertexArray(0);
 	
-	uint texture1 = load_texture(TEXTURES_DIR "container.jpg", false);
-	uint texture2 = load_texture(TEXTURES_DIR "awesomeface.png");
+	uint texture1 = load_texture(TEXTURES_DIR "/container.jpg", false);
+	uint texture2 = load_texture(TEXTURES_DIR "/awesomeface.png");
 
 	myShader.Use();
 	myShader.setInt("texture1", 0);		// set Texture units IDs

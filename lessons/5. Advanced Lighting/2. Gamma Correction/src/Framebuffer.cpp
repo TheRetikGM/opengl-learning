@@ -277,8 +277,8 @@ std::string Framebuffer::getScreenshotName()
 	struct tm *ltm = localtime(&tim);
 	
 	char buf[50];
-	snprintf(buf, sizeof(buf), "screenshot_%02i-%02i-%i_%02i%02i%02i.png",
-	 ltm->tm_mon + 1, ltm->tm_mday, ltm->tm_year + 1900, ltm->tm_hour, ltm->tm_min, ltm->tm_sec);
+	snprintf(buf, sizeof(buf), "screenshot_%i%02i%02i_%02i%02i%02i.png",
+	 ltm->tm_year + 1900, ltm->tm_mon + 1, ltm->tm_mday, ltm->tm_hour, ltm->tm_min, ltm->tm_sec);
 	return std::string(buf);
 }
 void Framebuffer::screenshot_defaultFBO(unsigned int width, unsigned int height)

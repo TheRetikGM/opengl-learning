@@ -14,11 +14,12 @@
 #include "Framebuffer.h"
 #include "DebugColors.h"
 #include <unistd.h>
+#include "config.h"
 
 #define WINDOW_NAME  	"2. Gamma Correction"
-#define TEXTURES_DIR 	"../../../../textures/"
-#define MODELS_DIR		"../../../../models/"
-#define SHADERS_DIR		"../src/shaders/"
+#define TEXTURES_DIR	REPO_ROOT "/textures/"
+#define MODELS_DIR	REPO_ROOT "/models/"
+#define SHADERS_DIR	SOURCE_DIR "/shaders/"
 #define _IsUnused		__attribute__((__unused__))
 
 using namespace std;

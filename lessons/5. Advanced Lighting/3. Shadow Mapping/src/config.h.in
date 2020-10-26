@@ -1,0 +1,3 @@
+#cmakedefine REPO_ROOT "@REPO_ROOT@"
+#cmakedefine PROJECT_DIR "@PROJECT_DIR@"
+#cmakedefine SOURCE_DIR "@SOURCE_DIR@"

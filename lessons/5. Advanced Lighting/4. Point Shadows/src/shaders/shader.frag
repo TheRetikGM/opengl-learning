@@ -58,7 +58,7 @@ void main()
 	float shadow = ShadowCalculation(normal, vs_in.FragPos);
 	FragColor.rgb = pow(ambient + (1.0 - shadow) * (diffuse + specular) * attenuation, vec3(1.0 / 2.2));
 	FragColor.a = 1.0;
-//	FragColor.rgb = vec3(texture(depthCubemap, vs_in.FragPos - light.position).r);
+//	FragColor.rgb = pow(vec3(texture(depthCubemap, vs_in.FragPos - light.position).r), vec3(1.0/2.2));
 //	FragColor.a = 1.0;
 }
 

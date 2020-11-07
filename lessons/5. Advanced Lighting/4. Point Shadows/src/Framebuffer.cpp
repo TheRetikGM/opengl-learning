@@ -298,12 +298,12 @@ void Framebuffer::screenshot_defaultFBO(unsigned int width, unsigned int height)
 
 /* Depthmap Framebuffer */	
 
-DepthmapFramebuffer::DepthmapFramebuffer(const DepthmapResolution& resolution) : Resolution(resolution), depth_texture(0), ID(0)
+DepthmapFramebuffer::DepthmapFramebuffer(const Resolution& resolution) : resolution(resolution), depth_texture(0), ID(0)
 {	
 	glGenFramebuffers(1, &ID);	
 	glGenTextures(1, &depth_texture);
 	glBindTexture(GL_TEXTURE_2D, depth_texture);
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT, Resolution.Width, Resolution.Height, 0, GL_DEPTH_COMPONENT, GL_FLOAT, NULL);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT, resolution.Width, resolution.Height, 0, GL_DEPTH_COMPONENT, GL_FLOAT, NULL);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_BORDER);
@@ -327,7 +327,7 @@ DepthmapFramebuffer::DepthmapFramebuffer(const DepthmapResolution& resolution) :
 	}
 }
 DepthmapFramebuffer::DepthmapFramebuffer(const unsigned int& width, const unsigned int& height) : 
-	DepthmapFramebuffer(DepthmapResolution{width, height})
+	DepthmapFramebuffer(Resolution{width, height})
 {}
 DepthmapFramebuffer::~DepthmapFramebuffer()
 {
@@ -350,4 +350,55 @@ void DepthmapFramebuffer::ClearDepthBuffer() const
 {
 	Use();
 	glClear(GL_DEPTH_BUFFER_BIT);
+}
+
+/* DepthCubemap Framebuffer */
+DepthCubeFramebuffer::DepthCubeFramebuffer(int width, int height) : Width(width), Height(height)
+{
+	init();
+}
+DepthCubeFramebuffer::~DepthCubeFramebuffer()
+{
+	glDeleteFramebuffers(1, &ID);
+	glDeleteTextures(1, &depthCubemap);	
+}
+
+void DepthCubeFramebuffer::init()
+{
+	glGenTextures(1, &depthCubemap);
+	glBindTexture(GL_TEXTURE_CUBE_MAP, depthCubemap);
+	for (unsigned int i = 0; i < 6; i++)
+		glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + i, 0, GL_DEPTH_COMPONENT, Width, Height, 0,
+			GL_DEPTH_COMPONENT, GL_FLOAT, 0);
+	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE);
+	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+	glBindTexture(GL_TEXTURE_CUBE_MAP, 0);
+	
+	glGenFramebuffers(1, &ID);
+	glBindFramebuffer(GL_FRAMEBUFFER, ID);
+	glFramebufferTexture(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, depthCubemap, 0);
+	glDrawBuffer(GL_NONE);
+	glReadBuffer(GL_NONE);
+	glBindFramebuffer(GL_FRAMEBUFFER, 0);
+
+	if (checkFramebufferStatus() != 0)
+	{
+		ID = 0;
+	}
+}
+
+unsigned int DepthCubeFramebuffer::getDepthCubemap() const
+{
+	return depthCubemap;
+}
+void DepthCubeFramebuffer::clearDepth() const
+{
+	glClear(GL_DEPTH_BUFFER_BIT);
+}
+void DepthCubeFramebuffer::Use() const
+{
+	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 }

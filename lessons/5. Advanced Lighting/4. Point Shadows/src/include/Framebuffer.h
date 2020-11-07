@@ -70,7 +70,7 @@ private:
 	Framebuffer* intermediateFBO;
 };
 
-struct DepthmapResolution
+struct Resolution
 {
 	unsigned int Width;
 	unsigned int Height;
@@ -79,9 +79,9 @@ class DepthmapFramebuffer
 {
 public:
 	unsigned int ID;
-	DepthmapResolution Resolution;
+	Resolution resolution;
 
-	DepthmapFramebuffer(const DepthmapResolution& resolution);
+	DepthmapFramebuffer(const Resolution& resolution);
 	DepthmapFramebuffer(const unsigned int& width, const unsigned int& height);
 	~DepthmapFramebuffer();
 
@@ -91,4 +91,22 @@ public:
 	void ClearDepthBuffer() const;
 private:	
 	unsigned int depth_texture;
+};
+
+class DepthCubeFramebuffer
+{
+	unsigned int depthCubemap;
+
+	void init();
+	
+public:
+	unsigned int ID;
+	const int Width, Height;
+
+	DepthCubeFramebuffer(int width, int height);
+	~DepthCubeFramebuffer();
+
+	unsigned int getDepthCubemap() const;
+	void clearDepth() const;
+	void Use() const;
 };

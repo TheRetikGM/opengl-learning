@@ -21,7 +21,7 @@
 	#include <Windows.h>
 #endif
 
-#define WINDOW_NAME  	"5. Normal Mapping"
+#define WINDOW_NAME  	"6. Parallax Mapping"
 #define TEXTURES_DIR	REPO_ROOT "/textures/"
 #define MODELS_DIR		REPO_ROOT "/models/"
 #define SHADERS_DIR		SOURCE_DIR "/shaders/"
@@ -29,8 +29,6 @@
 
 using namespace std;
 typedef unsigned int uint;
-
-//STBIWDEF int stbi_write_png(char const *filename, int x, int y, int comp, const void *data, int stride_bytes);
 
 // Global Constants
 // ...
@@ -65,12 +63,11 @@ Shader* shader = NULL;
 Shader* quadShader = NULL;
 Shader* basicShader = NULL;
 
-glml::Model* cyborg = NULL;
-
 glm::vec3 lightPos(0.0f);
 glm::vec3 lightColor(1.0f, 1.0f, 1.0f);
 bool cullFaces = false;
 bool normalMapping = false;
+bool parallaxMapping = false;
 GLint polygonMode = GL_FILL;
 
 int main(int argc, char** argv)
@@ -99,7 +96,7 @@ int main(int argc, char** argv)
 	screenshot_FBO_ptr = &fbOffScreen;
 
 	glEnable(GL_DEPTH_TEST);
-	cullFaces = true;
+	cullFaces = false;	
 	//glEnable(GL_MULTISAMPLE);
 	/* ------------------ MAIN loop ------------------ */
 	while (!glfwWindowShouldClose(window)) {
@@ -120,10 +117,10 @@ int main(int argc, char** argv)
 		fbOffScreen.clearBuffers(0.006f, 0.006f, 0.006f, 1.0f);		
 
 		shader->Use();		
-		draw_scene(shader, true);				
+		draw_scene(shader, false);				
 		
 		// 2. Render pass: render quad on screen
-		glBindFramebuffer(GL_FRAMEBUFFER, 0);								
+		glBindFramebuffer(GL_FRAMEBUFFER, 0);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 		glDisable(GL_DEPTH_TEST);
@@ -148,7 +145,6 @@ int main(int argc, char** argv)
 	delete(shader);
 	delete(quadShader);	
 	delete(basicShader);
-	delete(cyborg);
 
 	return 0;
 }
@@ -218,15 +214,31 @@ void proccessInput(GLFWwindow* window)
 	//if (glfwGetKey(window, GLFW_KEY_F4) == GLFW_PRESS);			// F4		
 	if (glfwGetKey(window, GLFW_KEY_1) == GLFW_PRESS)			// 1
 	{
-		if (!normalMapping)
+		if (!normalMapping) {
 			std::cout << DC_INFO << " Normal mapping: " << DC_GREEN << "on" << DC_DEFAULT << "\n";
-		normalMapping = true;
+			normalMapping = true;
+		}
 	}
 	else if (glfwGetKey(window, GLFW_KEY_2) == GLFW_PRESS)			// 2
 	{
-		if (normalMapping)
+		if (normalMapping) {
 			std::cout << DC_INFO << " Normal mapping: " << DC_RED << "off" << DC_DEFAULT << "\n";
-		normalMapping = false;
+			normalMapping = false;
+		}
+	}
+	if (glfwGetKey(window, GLFW_KEY_3) == GLFW_PRESS)
+	{
+		if (!parallaxMapping) {
+			std::cout << DC_INFO << " Parallax mapping: " << DC_GREEN << "on" << DC_DEFAULT << "\n";
+			parallaxMapping = true;
+		}
+	}
+	else if (glfwGetKey(window, GLFW_KEY_4) == GLFW_PRESS)
+	{
+		if (parallaxMapping) {
+			std::cout << DC_INFO << " Parallax mapping: " << DC_RED << "off" << DC_DEFAULT << "\n";
+			parallaxMapping = false;
+		}
 	}
 	/* -------------------- Movement -------------------- */
 	if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)			// w
@@ -446,7 +458,7 @@ void draw_quad(void)
 {
 	if (quadVAO == 0 || quadVBO == 0)
 	{
-		// positions
+		//Tangent space calculations 	
 		glm::vec3 pos1(-1.0f, 1.0f, 0.0f);
 		glm::vec3 pos2(-1.0f, -1.0f, 0.0f);
 		glm::vec3 pos3(1.0f, -1.0f, 0.0f);
@@ -497,7 +509,6 @@ void draw_quad(void)
 		bitangent2.y = f * (-deltaUV2.x * edge1.y + deltaUV1.x * edge2.y);
 		bitangent2.z = f * (-deltaUV2.x * edge1.z + deltaUV1.x * edge2.z);
 
-
 		float quadVertices[] = {
 			// positions            // normal         // texcoords  // tangent                          // bitangent
 			pos1.x, pos1.y, pos1.z, nm.x, nm.y, nm.z, uv1.x, uv1.y, tangent1.x, tangent1.y, tangent1.z, bitangent1.x, bitangent1.y, bitangent1.z,
@@ -514,15 +525,15 @@ void draw_quad(void)
 		glBindVertexArray(quadVAO);
 		glBindBuffer(GL_ARRAY_BUFFER, quadVBO);
 		glBufferData(GL_ARRAY_BUFFER, sizeof(quadVertices), &quadVertices, GL_STATIC_DRAW);
-		glEnableVertexAttribArray(0);
+		glEnableVertexAttribArray(0); // Vertex positions
 		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 14 * sizeof(float), (void*)0);
-		glEnableVertexAttribArray(2);
-		glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, 14 * sizeof(float), (void*)(3 * sizeof(float)));
-		glEnableVertexAttribArray(1);
-		glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 14 * sizeof(float), (void*)(6 * sizeof(float)));
-		glEnableVertexAttribArray(3);
+		glEnableVertexAttribArray(1); // Vertex normals
+		glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 14 * sizeof(float), (void*)(3 * sizeof(float)));
+		glEnableVertexAttribArray(2); // Vertex texture coordinates
+		glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 14 * sizeof(float), (void*)(6 * sizeof(float)));
+		glEnableVertexAttribArray(3); // Vertex tangent
 		glVertexAttribPointer(3, 3, GL_FLOAT, GL_FALSE, 14 * sizeof(float), (void*)(8 * sizeof(float)));
-		glEnableVertexAttribArray(4);
+		glEnableVertexAttribArray(4); // Vertex bitangent
 		glVertexAttribPointer(4, 3, GL_FLOAT, GL_FALSE, 14 * sizeof(float), (void*)(11 * sizeof(float)));
 	}
 	glBindVertexArray(quadVAO);
@@ -530,16 +541,20 @@ void draw_quad(void)
 	glBindVertexArray(0);
 }
 
-unsigned int brick_texture = 0, brick_texture_normal = 0;
+unsigned int brick_texture = 0, brick_texture_normal = 0, brick_texture_height = 0;
 void draw_scene(const Shader* shader, bool lightCube)
 {
-	//if (brick_texture == 0)												  // flipV sRGB
-	//	brick_texture = load_texture(TEXTURES_DIR "brickwall/brickwall.jpg", true, true);	
-	//if (brick_texture_normal == 0)
-	//	brick_texture_normal = load_texture(TEXTURES_DIR "brickwall/brickwall_normal.jpg", true, false);
-	if (cyborg == NULL)
-		cyborg = new glml::Model(MODELS_DIR "backpack/backpack.obj", true, true);
-
+	if (brick_texture == 0)												  // flipV sRGB
+		brick_texture = load_texture(TEXTURES_DIR "brickwall2/brickwall2.jpg", true, true);	
+	if (brick_texture_normal == 0)
+		brick_texture_normal = load_texture(TEXTURES_DIR "brickwall2/brickwall2_normal.jpg", true, false);
+	if (brick_texture_height == 0)
+		brick_texture_height = load_texture(TEXTURES_DIR "brickwall2/brickwall2_height.jpg", true, false);
+	if (!brick_texture || !brick_texture_normal || !brick_texture_height)
+	{
+		std::cout << DC_ERROR " Could not load needed textures. Exiting..." DC_DEFAULT << std::endl;		
+		exit(EXIT_FAILURE);
+	}
 	glm::mat4 model(1.0f);
 	glm::mat4 view = myCamera.getViewMatrix();
 	glm::mat4 projection = glm::perspective(glm::radians(myCamera.FOV), 
@@ -551,36 +566,41 @@ void draw_scene(const Shader* shader, bool lightCube)
 	
 	// Lighting 
 	float tim = (float)glfwGetTime();
-	lightPos = glm::vec3(0.0f, 0.0f, 0.0f);
+	lightPos = glm::vec3(0.0f, 0.0f, 1.5f);
 	shader->setVec3("light.position", lightPos);
 	shader->setVec3("viewPos", myCamera.Position);
 	shader->setVec3("light.ambient", glm::vec3(0.005f));
 	shader->setVec3("light.diffuse", 0.9f * lightColor);
 	shader->setVec3("light.specular", 1.0f * lightColor);
 
-	/*shader->setInt("texture0", 0);
+	shader->setInt("material.texture_diffuse0", 0);
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, brick_texture);
-	shader->setInt("texture0_normal", 1);
+	shader->setInt("material.texture_normal0", 1);
 	glActiveTexture(GL_TEXTURE1);
-	glBindTexture(GL_TEXTURE_2D, brick_texture_normal);*/	
+	glBindTexture(GL_TEXTURE_2D, brick_texture_normal);
+	shader->setInt("material.texture_height0", 2);
+	glActiveTexture(GL_TEXTURE2);
+	glBindTexture(GL_TEXTURE_2D, brick_texture_height);
 
 	if (cullFaces)
 		glEnable(GL_CULL_FACE);
 
-	model = glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, -1.5f, -2.0f));
+	model = glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 0.0f, -0.5f));
 	model = glm::scale(model, glm::vec3(1.0f));
-	//model = glm::rotate(model, glm::radians(-45.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+	//model = glm::rotate(model, tim * 0.5f, glm::vec3(0.0f, 0.0f, 1.0f));	
 	shader->setMat4("model", model);
 	shader->setMat3("normalMatrix", glm::transpose(glm::inverse(model)));
 	shader->setBool("normalMapping", normalMapping);
-	cyborg->Draw(*shader);
+	shader->setBool("parallaxMapping", parallaxMapping);
+	shader->setFloat("height_scale", 0.15f);
+	draw_quad();
 
 	if (lightCube)
 	{
 		basicShader->Use();
 		model = glm::translate(glm::mat4(1.0f), lightPos);
-		model = glm::scale(model, glm::vec3(0.1f));
+		model = glm::scale(model, glm::vec3(0.05f));
 		basicShader->setMat4("PVM", projection * view * model);
 		basicShader->setVec3("Color", lightColor);
 		draw_cube();

@@ -39,7 +39,7 @@ void main()
 		normal = normalize(normal * 2.0 - 1.0);
 	}
 	else {
-		normal = normalize(fs_in.Normal);
+		normal = fs_in.Normal;
 	}
 	
 	float fragDist = length(fs_in.TangLightPos - fs_in.TangFragPos);

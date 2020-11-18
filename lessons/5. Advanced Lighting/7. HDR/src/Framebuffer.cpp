@@ -22,14 +22,14 @@ int checkFramebufferStatus()
 	}
 }
 
-Framebuffer::Framebuffer(const int& width, const int& height)
+Framebuffer::Framebuffer(const int& width, const int& height, const GLint& internal_format)
 {
 	glGenFramebuffers(1, &ID);
 	glBindFramebuffer(GL_FRAMEBUFFER, ID);
 
 	glGenTextures(1, &ColorBuffer);
 	glBindTexture(GL_TEXTURE_2D, ColorBuffer);
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, NULL);
+	glTexImage2D(GL_TEXTURE_2D, 0, internal_format, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, NULL);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 	glBindTexture(GL_TEXTURE_2D, 0);
@@ -167,7 +167,7 @@ std::string Framebuffer::screenshot(std::string path)
 	return scr_name;
 }
 
-MSFramebuffer::MSFramebuffer(const int& width, const int& height, const unsigned int samples) 
+MSFramebuffer::MSFramebuffer(const int& width, const int& height, const unsigned int samples, const GLint& internal_format) 
 	: Nsamples(samples), intermediateFBO(NULL)
 {
 	glGenFramebuffers(1, &ID);
@@ -175,7 +175,7 @@ MSFramebuffer::MSFramebuffer(const int& width, const int& height, const unsigned
 
 	glGenTextures(1, &ColorBuffer);
 	glBindTexture(GL_TEXTURE_2D_MULTISAMPLE, ColorBuffer);	
-	glTexImage2DMultisample(GL_TEXTURE_2D_MULTISAMPLE, samples, GL_RGB, width, height, GL_TRUE);
+	glTexImage2DMultisample(GL_TEXTURE_2D_MULTISAMPLE, samples, internal_format, width, height, GL_TRUE);
 	glTexParameteri(GL_TEXTURE_2D_MULTISAMPLE, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D_MULTISAMPLE, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 	glBindTexture(GL_TEXTURE_2D_MULTISAMPLE, 0);
@@ -203,7 +203,7 @@ MSFramebuffer::MSFramebuffer(const int& width, const int& height, const unsigned
 	this->width = width;
 	this->height = height;
 
-	intermediateFBO = new Framebuffer(width, height);
+	intermediateFBO = new Framebuffer(width, height, internal_format);
 }
 MSFramebuffer::~MSFramebuffer()
 {

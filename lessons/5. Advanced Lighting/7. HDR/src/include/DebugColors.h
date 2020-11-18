@@ -9,3 +9,9 @@
 #define DC_SUCCESS		DC_GREEN  "[SUCCESS]"	DC_DEFAULT
 #define DC_INFO			DC_CYAN	  "[INFO]"		DC_DEFAULT
 #define DC_WARNING		DC_YELLOW "[WARNING]"	DC_DEFAULT
+
+#define DC_CURSOR_MOVE(y, x)   std::cout << "\033[" << (y + 1) << ";" << (x + 1) << "H"
+#define DC_CURSOR_SAVE()       std::cout << "\033[s"
+#define DC_CURSOR_RESTORE()    std::cout << "\033[u"
+#define DC_CLRTOEOL()          std::cout << "\033[K"
+#define DC_CLRSCR()            std::cout << "\033[2J"

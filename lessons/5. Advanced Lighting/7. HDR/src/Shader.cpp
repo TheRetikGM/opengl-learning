@@ -52,10 +52,10 @@ Shader::Shader(const char* vertexShaderSourcePath, const char* fragmentShaderSou
 	glCompileShader(vertexShader);	
 	glGetShaderiv(vertexShader, GL_COMPILE_STATUS, &success);
 	if (!success)
-	{
+	{		
 		glGetShaderInfoLog(vertexShader, 512, NULL, infoLog);
 		std::cerr << "Shader.h: " DC_WARNING " Vertex shader compilation failed!\n";
-		std::cerr << "shader.h: " DC_WARNING " Path: " << vertexShaderSourcePath << '\n' << infoLog << std::endl;
+		std::cerr << "shader.h: Path: " << vertexShaderSourcePath << '\n' << infoLog << std::endl;
 		this->Program = 0;
 		return;
 	}
@@ -68,7 +68,7 @@ Shader::Shader(const char* vertexShaderSourcePath, const char* fragmentShaderSou
 	{
 		glGetShaderInfoLog(fragmentShader, 512, NULL, infoLog);
 		std::cerr << "Shader.h: " DC_WARNING " Fragment shader compilation failed!\n";
-		std::cerr << "shader.h: " DC_WARNING " Path: " << fragmentShaderSourcePath << '\n' << infoLog << std::endl;
+		std::cerr << "shader.h: Path: " << fragmentShaderSourcePath << '\n' << infoLog << std::endl;
 		this->Program = 0;
 		return;
 	}
@@ -84,7 +84,7 @@ Shader::Shader(const char* vertexShaderSourcePath, const char* fragmentShaderSou
 		{
 			glGetShaderInfoLog(geometryShader, 512, NULL, infoLog);
 			std::cerr << "Shader.h: " DC_WARNING " Geometry shader compilation failed!\n";
-			std::cerr << "Shader.h: " DC_WARNING " Path: " << geometryShaderSourcePath;
+			std::cerr << "Shader.h: Path: " << geometryShaderSourcePath;
 			std::cerr << std::endl << infoLog << std::endl;
 			this->Program = 0;
 			return;

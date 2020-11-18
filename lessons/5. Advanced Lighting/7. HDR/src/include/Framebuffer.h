@@ -8,7 +8,7 @@ public:
 	/* id of this framebuffer */
 	unsigned int ID;
 
-	Framebuffer(const int& width, const int& height);
+	Framebuffer(const int& width, const int& height, const GLint& internal_format = GL_RGBA);
 	virtual ~Framebuffer();
 
 	/* updates width and height of buffers */
@@ -55,7 +55,7 @@ public:
 	/* Number of samples */
 	const unsigned int Nsamples;
 
-	MSFramebuffer(const int& width, const int& height, const unsigned int samples);
+	MSFramebuffer(const int& width, const int& height, const unsigned int samples = 2, const GLint& internal_format = GL_RGBA);
 	virtual ~MSFramebuffer();
 
 	std::string screenshot(std::string = BINARY_DIR) override;

@@ -30,6 +30,10 @@
 using namespace std;
 typedef unsigned int uint;
 
+struct Light {
+	glm::vec3 Position, Color, Ambient, Diffuse, Specular;	
+};
+
 // Global Constants
 // ...
 // Global Variables
@@ -42,6 +46,8 @@ float lastFrame = 0.0f;
 float lastX = 400;
 float lastY = 300;
 bool firstmouse = true;
+float shader_gamma = 2.2f;
+float exposure = 1.0f;
 
 /* pointer to Framebuffer object that is used for screenshot */
 /* if NULL default framebuffer is used */
@@ -52,6 +58,7 @@ void framebuffersize_callback(GLFWwindow* window, int width, int height);
 void mouse_callback(GLFWwindow* window, double xpos, double ypos);
 void scroll_callback(GLFWwindow* window, double xoffset, double yoffset);
 void proccessInput(GLFWwindow* window);
+void printDebugInfo();
 unsigned int load_texture(const char* path, bool flip = true, bool sRGB = true, GLint wrapS = GL_REPEAT, GLint wrapT = GL_REPEAT);
 unsigned int load_cubemap(vector<string> faces);
 void draw_cube(void);
@@ -63,8 +70,6 @@ Shader* shader = NULL;
 Shader* quadShader = NULL;
 Shader* basicShader = NULL;
 
-glm::vec3 lightPos(0.0f);
-glm::vec3 lightColor(1.0f, 1.0f, 1.0f);
 bool cullFaces = false;
 bool normalMapping = false;
 bool parallaxMapping = false;
@@ -90,22 +95,31 @@ int main(int argc, char** argv)
 		return -2;
 	}	
 	
-	MSFramebuffer fbOffScreen(WINDOW_WIDTH, WINDOW_HEIGHT, 4);
+	myCamera.MovementSpeed = 10.0f;
+
+	MSFramebuffer fbOffScreen(WINDOW_WIDTH, WINDOW_HEIGHT, 4, GL_RGB16F);
 	if (fbOffScreen.ID == 0)
 		return -1;			
-	screenshot_FBO_ptr = &fbOffScreen;
+	screenshot_FBO_ptr = NULL;
 
 	glEnable(GL_DEPTH_TEST);
-	cullFaces = false;	
+	cullFaces = false;
+
+	DC_CLRSCR();
+	DC_CURSOR_MOVE(10, 0);
 	//glEnable(GL_MULTISAMPLE);
 	/* ------------------ MAIN loop ------------------ */
 	while (!glfwWindowShouldClose(window)) {
 		float currentFrame = (float)glfwGetTime();
-		deltaTime = currentFrame - lastFrame;	// cas jak dlouho trval posledni frame
-		lastFrame = currentFrame;				// cas kdy zacal tento frame
+		deltaTime = currentFrame - lastFrame;	// cas jak dlouho trval posledni frame v sekundach
+		lastFrame = currentFrame;				// cas kdy zacal tento frame		
+
 		// input ...
 		proccessInput(window);
 		// rendering commands here ...
+
+		printDebugInfo();
+
 		glEnable(GL_DEPTH_TEST);
 		if (cullFaces)
 			glEnable(GL_CULL_FACE);
@@ -114,10 +128,10 @@ int main(int argc, char** argv)
 		glViewport(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
 		glPolygonMode(GL_FRONT_AND_BACK, polygonMode);
 		fbOffScreen.Use();
-		fbOffScreen.clearBuffers(0.006f, 0.006f, 0.006f, 1.0f);		
+		fbOffScreen.clearBuffers(0.002f, 0.002f, 0.002f, 1.0f);		
 
 		shader->Use();		
-		draw_scene(shader, false);				
+		draw_scene(shader, true);				
 		
 		// 2. Render pass: render quad on screen
 		glBindFramebuffer(GL_FRAMEBUFFER, 0);
@@ -130,9 +144,11 @@ int main(int argc, char** argv)
 		quadShader->setInt("texture0", 0);
 		glActiveTexture(GL_TEXTURE0);
 		glBindTexture(GL_TEXTURE_2D, fbOffScreen.getColorBuffer());
+		quadShader->setFloat("gamma", shader_gamma);
+		quadShader->setFloat("exposure", exposure);
 		draw_quad();
 
-		//glDisable(GL_FRAMEBUFFER_SRGB);
+		glDisable(GL_FRAMEBUFFER_SRGB);
 
 		// check and calls events and swap the buffers
 		glfwSwapBuffers(window);
@@ -147,6 +163,67 @@ int main(int argc, char** argv)
 	delete(basicShader);
 
 	return 0;
+}
+unsigned int wood_texture = 0;
+void draw_scene(const Shader* shader, bool lightCube)
+{
+	if (wood_texture == 0)									   // flipV sRGB
+		wood_texture = load_texture(TEXTURES_DIR "wood/wood.png", true, true);	
+
+	glm::mat4 model(1.0f);
+	glm::mat4 view = myCamera.getViewMatrix();
+	glm::mat4 projection = glm::perspective(glm::radians(myCamera.FOV), 
+		WINDOW_WIDTH / (float)WINDOW_HEIGHT, 0.1f, 300.0f);
+
+	shader->Use();
+	shader->setFloat("gamma", shader_gamma);
+	shader->setMat4("projection", projection);
+	shader->setMat4("view", view);	
+	
+	/* Lighting */
+	static std::vector<Light> lights = {
+		// Position						Color						 Ambient		  Diffuse		   Specular
+		{glm::vec3(0.0f,  0.0f, 49.5f), glm::vec3(200.0f, 200.0f, 200.0f), glm::vec3(0.005f), glm::vec3(1.0f), glm::vec3(0.0f)},
+		{glm::vec3(-1.4f, -1.9f, 9.0f), glm::vec3(0.1f, 0.0f, 0.0f), glm::vec3(0.005f), glm::vec3(1.0f), glm::vec3(0.0f)},
+		{glm::vec3( 0.0f, -1.8f, 4.0f), glm::vec3(0.0f, 0.0f, 0.2f), glm::vec3(0.005f), glm::vec3(1.0f), glm::vec3(0.0f)},
+		{glm::vec3( 0.8f, -1.7f, 6.0f), glm::vec3(0.0f, 0.1f, 0.0f), glm::vec3(0.005f), glm::vec3(1.0f), glm::vec3(0.0f)},	
+	};	
+	shader->setVec3("viewPos", myCamera.Position);
+	shader->setInt("lights_num", lights.size());
+	for (int i = 0; i < lights.size(); i++)
+	{
+		shader->setVec3("lights[" + std::to_string(i) + "].position", lights[i].Position);		
+		shader->setVec3("lights[" + std::to_string(i) + "].ambient", lights[i].Ambient);
+		shader->setVec3("lights[" + std::to_string(i) + "].diffuse", lights[i].Diffuse * lights[i].Color);
+		shader->setVec3("lights[" + std::to_string(i) + "].specular", lights[i].Specular * lights[i].Color);	
+	}
+
+	shader->setInt("material.texture_diffuse0", 0);
+	glActiveTexture(GL_TEXTURE0);
+	glBindTexture(GL_TEXTURE_2D, wood_texture);	
+
+	if (cullFaces)
+		glEnable(GL_CULL_FACE);
+
+	model = glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 0.0f, 25.0));
+    model = glm::scale(model, glm::vec3(2.5f, 2.5f, 27.5f));	
+	shader->setMat4("model", model);
+	shader->setMat3("normalMatrix", glm::transpose(glm::inverse(model)));
+	shader->setBool("inverse_normals", true);
+	draw_cube();
+
+	if (lightCube)
+	{
+		for (int i = 0; i < lights.size(); i++)
+		{
+			basicShader->Use();
+			model = glm::translate(glm::mat4(1.0f), lights[i].Position);
+			model = glm::scale(model, glm::vec3(0.05f));
+			basicShader->setMat4("PVM", projection * view * model);
+			basicShader->setVec3("Color", lights[i].Color);
+			draw_cube();
+		}
+	}
 }
 
 uint8_t init(void) {
@@ -174,6 +251,23 @@ uint8_t init(void) {
 	glfwSetScrollCallback(window, scroll_callback);
 	return 0;
 }
+void printDebugInfo()
+{	
+	DC_CURSOR_SAVE();
+	DC_CURSOR_MOVE(0, 0);	
+	std::cout << DC_RED  "--------[DEBUG]--------" DC_DEFAULT << std::endl;	
+	std::cout << DC_CYAN "Frame rate: " DC_YELLOW << 1.0 / deltaTime << DC_DEFAULT "   "<< std::endl;
+	std::cout << DC_CYAN "Gamma: " DC_YELLOW << shader_gamma << DC_DEFAULT "   "<< std::endl;	
+	std::cout << DC_CYAN "Exposure: " DC_YELLOW << exposure << DC_DEFAULT "                              "<< std::endl;
+	std::cout << DC_CYAN "Polygon mode: " DC_YELLOW << (polygonMode == GL_FILL ? "fill" : "line") << DC_DEFAULT << std::endl;
+	std::cout << DC_CYAN "Normal mapping: " << (normalMapping ? DC_GREEN "on " : DC_RED "off") << DC_DEFAULT << std::endl;
+	std::cout << DC_CYAN "Parallax mapping: " << (parallaxMapping ? DC_GREEN "on " : DC_RED "off") << DC_DEFAULT << std::endl;
+	std::cout << DC_CYAN "Face culling: " << (cullFaces ? DC_GREEN "on " : DC_RED "off") << DC_DEFAULT << std::endl;
+	DC_CLRTOEOL();
+	std::cout << DC_CYAN "FOV: " DC_YELLOW << myCamera.FOV << " C" << DC_DEFAULT << std::endl;
+	std::cout << DC_RED  "-----------------------" DC_DEFAULT << std::endl;
+	DC_CURSOR_RESTORE();
+}
 void framebuffersize_callback(GLFWwindow* window, int width, int height)
 {
 	glViewport(0, 0, width, height);
@@ -187,16 +281,14 @@ void proccessInput(GLFWwindow* window)
 	if (glfwGetKey(window, GLFW_KEY_F1) == GLFW_PRESS)			// F1
 	{
 		if (polygonMode != GL_FILL)
-		{
-			std::cout << DC_INFO << " Polygon mode: " << DC_YELLOW << "fill" << DC_DEFAULT << "\n";
+		{			
 			polygonMode = GL_FILL;
 		}
 	}
 	else if (glfwGetKey(window, GLFW_KEY_F2) == GLFW_PRESS)			// F2
 	{
 		if (polygonMode != GL_LINE)
-		{
-			std::cout << DC_INFO << " Polygon mode: " << DC_YELLOW << "line" << DC_DEFAULT << "\n";
+		{			
 			polygonMode = GL_LINE;
 		}
 	}
@@ -211,34 +303,47 @@ void proccessInput(GLFWwindow* window)
 		std::this_thread::sleep_for(std::chrono::seconds(1));		
 		std::cout << DC_INFO << " Screenshot saved to '" DC_MAGNETA << path << DC_DEFAULT "'\n";
 	}	
-	//if (glfwGetKey(window, GLFW_KEY_F4) == GLFW_PRESS);			// F4		
+	if (glfwGetKey(window, GLFW_KEY_F4) == GLFW_PRESS)			// F4		
+	{
+		glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+	}
+	else if (glfwGetKey(window, GLFW_KEY_F5) == GLFW_PRESS)
+	{
+		glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+	}
 	if (glfwGetKey(window, GLFW_KEY_1) == GLFW_PRESS)			// 1
 	{
-		if (!normalMapping) {
-			std::cout << DC_INFO << " Normal mapping: " << DC_GREEN << "on" << DC_DEFAULT << "\n";
+		if (!normalMapping) {			
 			normalMapping = true;
 		}
 	}
 	else if (glfwGetKey(window, GLFW_KEY_2) == GLFW_PRESS)			// 2
 	{
-		if (normalMapping) {
-			std::cout << DC_INFO << " Normal mapping: " << DC_RED << "off" << DC_DEFAULT << "\n";
+		if (normalMapping) {			
 			normalMapping = false;
 		}
 	}
 	if (glfwGetKey(window, GLFW_KEY_3) == GLFW_PRESS)
 	{
-		if (!parallaxMapping) {
-			std::cout << DC_INFO << " Parallax mapping: " << DC_GREEN << "on" << DC_DEFAULT << "\n";
+		if (!parallaxMapping) {			
 			parallaxMapping = true;
 		}
 	}
 	else if (glfwGetKey(window, GLFW_KEY_4) == GLFW_PRESS)
 	{
-		if (parallaxMapping) {
-			std::cout << DC_INFO << " Parallax mapping: " << DC_RED << "off" << DC_DEFAULT << "\n";
+		if (parallaxMapping) {			
 			parallaxMapping = false;
 		}
+	}
+	float exposure_gain_speed = 1.0f; // gain 1.0 per second
+	if (glfwGetKey(window, GLFW_KEY_UP) == GLFW_PRESS)
+	{
+		exposure += exposure_gain_speed * deltaTime;
+	}
+	else if (glfwGetKey(window, GLFW_KEY_DOWN) == GLFW_PRESS)
+	{
+		if (exposure > 0.0f)
+			exposure -= exposure_gain_speed * deltaTime;		
 	}
 	/* -------------------- Movement -------------------- */
 	if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)			// w
@@ -483,70 +588,4 @@ void draw_quad(void)
 	glBindVertexArray(quadVAO);
 	glDrawArrays(GL_TRIANGLES, 0, 6);
 	glBindVertexArray(0);
-}
-
-unsigned int brick_texture = 0, brick_texture_normal = 0, brick_texture_height = 0;
-void draw_scene(const Shader* shader, bool lightCube)
-{
-	if (brick_texture == 0)												  // flipV sRGB
-		brick_texture = load_texture(TEXTURES_DIR "brickwall2/brickwall2.jpg", true, true);	
-	if (brick_texture_normal == 0)
-		brick_texture_normal = load_texture(TEXTURES_DIR "brickwall2/brickwall2_normal.jpg", true, false);
-	if (brick_texture_height == 0)
-		brick_texture_height = load_texture(TEXTURES_DIR "brickwall2/brickwall2_height.jpg", true, false);
-	if (!brick_texture || !brick_texture_normal || !brick_texture_height)
-	{
-		std::cout << DC_ERROR " Could not load needed textures. Exiting..." DC_DEFAULT << std::endl;		
-		exit(EXIT_FAILURE);
-	}
-	glm::mat4 model(1.0f);
-	glm::mat4 view = myCamera.getViewMatrix();
-	glm::mat4 projection = glm::perspective(glm::radians(myCamera.FOV), 
-		WINDOW_WIDTH / (float)WINDOW_HEIGHT, 0.1f, 300.0f);
-
-	shader->Use();	
-	shader->setMat4("projection", projection);
-	shader->setMat4("view", view);	
-	
-	// Lighting 
-	float tim = (float)glfwGetTime();
-	lightPos = glm::vec3(0.0f, 0.0f, 1.5f);
-	shader->setVec3("light.position", lightPos);
-	shader->setVec3("viewPos", myCamera.Position);
-	shader->setVec3("light.ambient", glm::vec3(0.005f));
-	shader->setVec3("light.diffuse", 0.9f * lightColor);
-	shader->setVec3("light.specular", 1.0f * lightColor);
-
-	shader->setInt("material.texture_diffuse0", 0);
-	glActiveTexture(GL_TEXTURE0);
-	glBindTexture(GL_TEXTURE_2D, brick_texture);
-	shader->setInt("material.texture_normal0", 1);
-	glActiveTexture(GL_TEXTURE1);
-	glBindTexture(GL_TEXTURE_2D, brick_texture_normal);
-	shader->setInt("material.texture_height0", 2);
-	glActiveTexture(GL_TEXTURE2);
-	glBindTexture(GL_TEXTURE_2D, brick_texture_height);
-
-	if (cullFaces)
-		glEnable(GL_CULL_FACE);
-
-	model = glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 0.0f, -0.5f));
-	model = glm::scale(model, glm::vec3(1.0f));
-	//model = glm::rotate(model, tim * 0.5f, glm::vec3(0.0f, 0.0f, 1.0f));	
-	shader->setMat4("model", model);
-	shader->setMat3("normalMatrix", glm::transpose(glm::inverse(model)));
-	shader->setBool("normalMapping", normalMapping);
-	shader->setBool("parallaxMapping", parallaxMapping);
-	shader->setFloat("height_scale", 0.15f);
-	draw_quad();
-
-	if (lightCube)
-	{
-		basicShader->Use();
-		model = glm::translate(glm::mat4(1.0f), lightPos);
-		model = glm::scale(model, glm::vec3(0.05f));
-		basicShader->setMat4("PVM", projection * view * model);
-		basicShader->setVec3("Color", lightColor);
-		draw_cube();
-	}
 }

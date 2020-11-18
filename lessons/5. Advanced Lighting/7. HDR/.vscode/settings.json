@@ -91,5 +91,6 @@
         "queue": "cpp",
         "stack": "cpp"
     },
-    "cmake.configureOnOpen": true
+    "cmake.configureOnOpen": true,
+    "editor.suggest.showStatusBar": true
 }

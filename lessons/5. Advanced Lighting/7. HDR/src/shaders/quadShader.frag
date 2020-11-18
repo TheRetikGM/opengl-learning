@@ -4,6 +4,9 @@ out vec4 FragColor;
 in vec2 TexCoord;
 
 uniform sampler2D texture0;
+uniform float gamma;
+uniform float exposure;
+
 float offset = 1.0 / 300.0;
 
 void main()
@@ -32,9 +35,9 @@ void main()
 		col += vec3(texture(texture0, TexCoord.st + offsets[i])) * kernel[i];
 	}
 
-	float gamma = 2.2;	
-	//FragColor = vec4(pow(col, vec3(1.0 / gamma)), 1.0);	
-	FragColor = vec4(col, 1.0f);
-//	vec3 col = vec3(texture(texture0, TexCoord).r);
-//	FragColor = vec4(pow(col, vec3(1.0 / 2.2)), 1.0);
+	vec3 hdrColor = col;
+	vec3 mapped = vec3(1.0) - exp(-hdrColor * exposure);
+	mapped = pow(mapped, vec3(1.0 / gamma));
+		
+	FragColor = vec4(mapped, 1.0f);
 }

@@ -1,2 +1,0 @@
-/usr/bin/ar qc libglmld.a CMakeFiles/glml.dir/Model.cpp.o CMakeFiles/glml.dir/Mesh.cpp.o
-/usr/bin/ranlib libglmld.a

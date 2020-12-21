@@ -1,0 +1,124 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+../../../../include/KHR/khrplatform.h
+stdint.h
+-
+inttypes.h
+-
+stdint.h
+-
+
+../../../../include/glad/glad.h
+KHR/khrplatform.h
+-
+
+../../../../include/stb_image_write.h
+stdlib.h
+-
+stdio.h
+-
+stdarg.h
+-
+stdlib.h
+-
+string.h
+-
+math.h
+-
+assert.h
+-
+
+../src/include/DebugColors.h
+
+../src/include/glfbo.h
+iostream
+-
+glad/glad.h
+-
+vector
+-
+initializer_list
+-
+unordered_map
+-
+string
+-
+
+/run/media/kuba/hdd_ext4/git/tmp/opengl-learning/lessons/5. Advanced Lighting/8. Bloom/src/glfbo/ColorBuffer.cpp
+glfbo.h
+/run/media/kuba/hdd_ext4/git/tmp/opengl-learning/lessons/5. Advanced Lighting/8. Bloom/src/glfbo/glfbo.h
+config.h
+/run/media/kuba/hdd_ext4/git/tmp/opengl-learning/lessons/5. Advanced Lighting/8. Bloom/src/glfbo/config.h
+DebugColors.h
+/run/media/kuba/hdd_ext4/git/tmp/opengl-learning/lessons/5. Advanced Lighting/8. Bloom/src/glfbo/DebugColors.h
+iostream
+-
+
+/run/media/kuba/hdd_ext4/git/tmp/opengl-learning/lessons/5. Advanced Lighting/8. Bloom/src/glfbo/DepthBuffer.cpp
+glfbo.h
+/run/media/kuba/hdd_ext4/git/tmp/opengl-learning/lessons/5. Advanced Lighting/8. Bloom/src/glfbo/glfbo.h
+config.h
+/run/media/kuba/hdd_ext4/git/tmp/opengl-learning/lessons/5. Advanced Lighting/8. Bloom/src/glfbo/config.h
+DebugColors.h
+/run/media/kuba/hdd_ext4/git/tmp/opengl-learning/lessons/5. Advanced Lighting/8. Bloom/src/glfbo/DebugColors.h
+iostream
+-
+
+/run/media/kuba/hdd_ext4/git/tmp/opengl-learning/lessons/5. Advanced Lighting/8. Bloom/src/glfbo/DepthStencilBuffer.cpp
+glfbo.h
+/run/media/kuba/hdd_ext4/git/tmp/opengl-learning/lessons/5. Advanced Lighting/8. Bloom/src/glfbo/glfbo.h
+config.h
+/run/media/kuba/hdd_ext4/git/tmp/opengl-learning/lessons/5. Advanced Lighting/8. Bloom/src/glfbo/config.h
+DebugColors.h
+/run/media/kuba/hdd_ext4/git/tmp/opengl-learning/lessons/5. Advanced Lighting/8. Bloom/src/glfbo/DebugColors.h
+iostream
+-
+
+/run/media/kuba/hdd_ext4/git/tmp/opengl-learning/lessons/5. Advanced Lighting/8. Bloom/src/glfbo/Framebuffer.cpp
+iostream
+-
+glfbo.h
+/run/media/kuba/hdd_ext4/git/tmp/opengl-learning/lessons/5. Advanced Lighting/8. Bloom/src/glfbo/glfbo.h
+DebugColors.h
+/run/media/kuba/hdd_ext4/git/tmp/opengl-learning/lessons/5. Advanced Lighting/8. Bloom/src/glfbo/DebugColors.h
+config.h
+/run/media/kuba/hdd_ext4/git/tmp/opengl-learning/lessons/5. Advanced Lighting/8. Bloom/src/glfbo/config.h
+stb_image_write.h
+-
+
+/run/media/kuba/hdd_ext4/git/tmp/opengl-learning/lessons/5. Advanced Lighting/8. Bloom/src/glfbo/MSFramebuffer.cpp
+glad/glad.h
+-
+glfbo.h
+/run/media/kuba/hdd_ext4/git/tmp/opengl-learning/lessons/5. Advanced Lighting/8. Bloom/src/glfbo/glfbo.h
+config.h
+/run/media/kuba/hdd_ext4/git/tmp/opengl-learning/lessons/5. Advanced Lighting/8. Bloom/src/glfbo/config.h
+DebugColors.h
+/run/media/kuba/hdd_ext4/git/tmp/opengl-learning/lessons/5. Advanced Lighting/8. Bloom/src/glfbo/DebugColors.h
+stb_image_write.h
+-
+
+/run/media/kuba/hdd_ext4/git/tmp/opengl-learning/lessons/5. Advanced Lighting/8. Bloom/src/glfbo/StencilBuffer.cpp
+glfbo.h
+/run/media/kuba/hdd_ext4/git/tmp/opengl-learning/lessons/5. Advanced Lighting/8. Bloom/src/glfbo/glfbo.h
+iostream
+-
+config.h
+/run/media/kuba/hdd_ext4/git/tmp/opengl-learning/lessons/5. Advanced Lighting/8. Bloom/src/glfbo/config.h
+DebugColors.h
+/run/media/kuba/hdd_ext4/git/tmp/opengl-learning/lessons/5. Advanced Lighting/8. Bloom/src/glfbo/DebugColors.h
+
+/run/media/kuba/hdd_ext4/git/tmp/opengl-learning/lessons/5. Advanced Lighting/8. Bloom/src/glfbo/glfbo.cpp
+glfbo.h
+/run/media/kuba/hdd_ext4/git/tmp/opengl-learning/lessons/5. Advanced Lighting/8. Bloom/src/glfbo/glfbo.h
+stb_image_write.h
+-
+
+src/config.h
+

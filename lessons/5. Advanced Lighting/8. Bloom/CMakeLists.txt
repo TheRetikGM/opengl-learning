@@ -4,7 +4,9 @@ project("main")
 set(CMAKE_CXX_STANDARD 11)
 
 set(CMAKE_CONFIGURATION_TYPES "Debug;Release" CACHE STRING "Configs" FORCE)
-if (DEFINED CMAKE_BUILD_TYPE AND CMAKE_VERSION VERSION_GREATER "2.8")
+if (NOT DEFINED CMAKE_BUILD_TYPE)
+	message(STATUS "Setting build type to 'Debug' as none was specified.")
+	set(CMAKE_BUILD_TYPE Release CACHE STRING "Choose the type of build." FORCE)
 	set_property(CACHE CMAKE_BUILD_TYPE PROPERTY STRINGS  ${CMAKE_CONFIGURATION_TYPES})
 endif()
 
@@ -21,21 +23,27 @@ target_link_directories("${PROJECT_NAME}"
 )
 
 target_link_libraries("${PROJECT_NAME}"
-	glfw3
 	camera
 	shader	
 	glfbo
 	glml
 )
+
 if (MSVC)
+	set(AssimpLibs
+		debug Debug/assimp-vc142-mtd optimized Release/assimp-vc142-mt
+		debug Debug/IrrXMLd optimized Release/IrrXML
+		debug Debug/zlibstaticd optimized Release/zlibstatic)
+	set (glfw3Lib debug Debug/glfw3d optimized Release/glfw3)
+	
 	target_link_libraries("${PROJECT_NAME}"
 		opengl32
-		assimp-vc142-mt
-		IrrXML
-		zlibstatic
+		${AssimpLibs}
+		${glfw3Lib}
 	)
 elseif (UNIX)
 	target_link_libraries("${PROJECT_NAME}"
+		glfw3
 		dl
 		m
 		Xi

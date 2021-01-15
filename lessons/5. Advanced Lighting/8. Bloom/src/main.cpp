@@ -343,6 +343,7 @@ uint8_t init(void) {
 	glfwSetFramebufferSizeCallback(window, framebuffersize_callback);
 	glfwSetCursorPosCallback(window, mouse_callback);
 	glfwSetScrollCallback(window, scroll_callback);
+//	glfwSwapInterval(2);
 
 	return 0;
 }

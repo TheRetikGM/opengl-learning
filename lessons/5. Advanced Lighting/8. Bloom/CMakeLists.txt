@@ -20,6 +20,8 @@ target_include_directories("${PROJECT_NAME}"
 
 target_link_directories("${PROJECT_NAME}"
 	PRIVATE "${CMAKE_SOURCE_DIR}/../../../lib"
+	PRIVATE "${CMAKE_SOURCE_DIR}/../../../lib/Release"
+	PRIVATE "${CMAKE_SOURCE_DIR}/../../../lib/Debug"
 )
 
 target_link_libraries("${PROJECT_NAME}"
@@ -42,8 +44,14 @@ if (MSVC)
 		${glfw3Lib}
 	)
 elseif (UNIX)
+	set(ASSIMP
+		debug assimpd optimized assimp
+		debug IrrXMLd optimized IrrXML
+		debug zlibstaticd optimized zlibstatic)
+	set(GLFW debug glfw3d optimized glfw3)
 	target_link_libraries("${PROJECT_NAME}"
-		glfw3
+		${GLFW}
+		${ASSIMP}
 		dl
 		m
 		Xi
@@ -52,6 +60,5 @@ elseif (UNIX)
 		X11
 		GL
 		GLU
-		assimp
 	)
 endif()

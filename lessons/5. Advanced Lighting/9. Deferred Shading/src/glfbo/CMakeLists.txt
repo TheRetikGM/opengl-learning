@@ -1,0 +1,10 @@
+add_library(glfbo 
+            ColorBuffer.cpp
+            DepthBuffer.cpp
+            StencilBuffer.cpp
+            DepthStencilBuffer.cpp
+            glfbo.cpp
+            Framebuffer.cpp
+            MSFramebuffer.cpp            
+            ${SOURCE_INCLUDE}/glfbo.h
+            )

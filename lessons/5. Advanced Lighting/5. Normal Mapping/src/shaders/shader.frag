@@ -54,7 +54,7 @@ void main()
 	// specular	
 	vec3 halfwayDir = normalize(lightDir + viewDir);
 	float spec = pow(max(dot(halfwayDir, normal), 0.0), 128.0);		
-	vec3 specular = spec * light.specular * texture(material.texture_specular0, fs_in.TexCoord);
+	vec3 specular = spec * light.specular * texture(material.texture_specular0, fs_in.TexCoord).rgb;
 
 	FragColor.rgb = pow(ambient + (diffuse + specular) * attenuation, vec3(1.0 / 2.2));
 	FragColor.a = 1.0;

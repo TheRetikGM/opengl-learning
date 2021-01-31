@@ -1,0 +1,118 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+../../../../include/KHR/khrplatform.h
+stdint.h
+-
+inttypes.h
+-
+stdint.h
+-
+
+../../../../include/glad/glad.h
+KHR/khrplatform.h
+-
+
+../../../../include/stb_image_write.h
+stdlib.h
+-
+stdio.h
+-
+stdarg.h
+-
+stdlib.h
+-
+string.h
+-
+math.h
+-
+assert.h
+-
+
+../src/include/DebugColors.h
+
+../src/include/glfbo.h
+iostream
+-
+glad/glad.h
+-
+vector
+-
+initializer_list
+-
+unordered_map
+-
+string
+-
+
+/home/kuba/Desktop/git/opengl-learning/lessons/5. Advanced Lighting/9. Deferred Shading/src/glfbo/ColorBuffer.cpp
+glfbo.h
+/home/kuba/Desktop/git/opengl-learning/lessons/5. Advanced Lighting/9. Deferred Shading/src/glfbo/glfbo.h
+config.h
+/home/kuba/Desktop/git/opengl-learning/lessons/5. Advanced Lighting/9. Deferred Shading/src/glfbo/config.h
+DebugColors.h
+/home/kuba/Desktop/git/opengl-learning/lessons/5. Advanced Lighting/9. Deferred Shading/src/glfbo/DebugColors.h
+iostream
+-
+
+/home/kuba/Desktop/git/opengl-learning/lessons/5. Advanced Lighting/9. Deferred Shading/src/glfbo/DepthBuffer.cpp
+glfbo.h
+/home/kuba/Desktop/git/opengl-learning/lessons/5. Advanced Lighting/9. Deferred Shading/src/glfbo/glfbo.h
+config.h
+/home/kuba/Desktop/git/opengl-learning/lessons/5. Advanced Lighting/9. Deferred Shading/src/glfbo/config.h
+DebugColors.h
+/home/kuba/Desktop/git/opengl-learning/lessons/5. Advanced Lighting/9. Deferred Shading/src/glfbo/DebugColors.h
+iostream
+-
+
+/home/kuba/Desktop/git/opengl-learning/lessons/5. Advanced Lighting/9. Deferred Shading/src/glfbo/DepthStencilBuffer.cpp
+glfbo.h
+/home/kuba/Desktop/git/opengl-learning/lessons/5. Advanced Lighting/9. Deferred Shading/src/glfbo/glfbo.h
+config.h
+/home/kuba/Desktop/git/opengl-learning/lessons/5. Advanced Lighting/9. Deferred Shading/src/glfbo/config.h
+DebugColors.h
+/home/kuba/Desktop/git/opengl-learning/lessons/5. Advanced Lighting/9. Deferred Shading/src/glfbo/DebugColors.h
+iostream
+-
+
+/home/kuba/Desktop/git/opengl-learning/lessons/5. Advanced Lighting/9. Deferred Shading/src/glfbo/Framebuffer.cpp
+iostream
+-
+glfbo.h
+/home/kuba/Desktop/git/opengl-learning/lessons/5. Advanced Lighting/9. Deferred Shading/src/glfbo/glfbo.h
+DebugColors.h
+/home/kuba/Desktop/git/opengl-learning/lessons/5. Advanced Lighting/9. Deferred Shading/src/glfbo/DebugColors.h
+config.h
+/home/kuba/Desktop/git/opengl-learning/lessons/5. Advanced Lighting/9. Deferred Shading/src/glfbo/config.h
+stb_image_write.h
+-
+
+/home/kuba/Desktop/git/opengl-learning/lessons/5. Advanced Lighting/9. Deferred Shading/src/glfbo/MSFramebuffer.cpp
+glad/glad.h
+-
+glfbo.h
+/home/kuba/Desktop/git/opengl-learning/lessons/5. Advanced Lighting/9. Deferred Shading/src/glfbo/glfbo.h
+config.h
+/home/kuba/Desktop/git/opengl-learning/lessons/5. Advanced Lighting/9. Deferred Shading/src/glfbo/config.h
+DebugColors.h
+/home/kuba/Desktop/git/opengl-learning/lessons/5. Advanced Lighting/9. Deferred Shading/src/glfbo/DebugColors.h
+stb_image_write.h
+-
+
+/home/kuba/Desktop/git/opengl-learning/lessons/5. Advanced Lighting/9. Deferred Shading/src/glfbo/StencilBuffer.cpp
+glfbo.h
+/home/kuba/Desktop/git/opengl-learning/lessons/5. Advanced Lighting/9. Deferred Shading/src/glfbo/glfbo.h
+iostream
+-
+config.h
+/home/kuba/Desktop/git/opengl-learning/lessons/5. Advanced Lighting/9. Deferred Shading/src/glfbo/config.h
+DebugColors.h
+/home/kuba/Desktop/git/opengl-learning/lessons/5. Advanced Lighting/9. Deferred Shading/src/glfbo/DebugColors.h
+
+src/config.h
+

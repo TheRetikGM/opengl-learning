@@ -1,0 +1,13 @@
+/home/kuba/Desktop/git/opengl-learning/lessons/5. Advanced Lighting/9. Deferred Shading/build/CMakeFiles/rebuild_cache.dir
+/home/kuba/Desktop/git/opengl-learning/lessons/5. Advanced Lighting/9. Deferred Shading/build/CMakeFiles/edit_cache.dir
+/home/kuba/Desktop/git/opengl-learning/lessons/5. Advanced Lighting/9. Deferred Shading/build/src/CMakeFiles/edit_cache.dir
+/home/kuba/Desktop/git/opengl-learning/lessons/5. Advanced Lighting/9. Deferred Shading/build/src/CMakeFiles/rebuild_cache.dir
+/home/kuba/Desktop/git/opengl-learning/lessons/5. Advanced Lighting/9. Deferred Shading/build/src/CMakeFiles/shader.dir
+/home/kuba/Desktop/git/opengl-learning/lessons/5. Advanced Lighting/9. Deferred Shading/build/src/CMakeFiles/main.dir
+/home/kuba/Desktop/git/opengl-learning/lessons/5. Advanced Lighting/9. Deferred Shading/build/src/CMakeFiles/camera.dir
+/home/kuba/Desktop/git/opengl-learning/lessons/5. Advanced Lighting/9. Deferred Shading/build/src/glml/CMakeFiles/rebuild_cache.dir
+/home/kuba/Desktop/git/opengl-learning/lessons/5. Advanced Lighting/9. Deferred Shading/build/src/glml/CMakeFiles/edit_cache.dir
+/home/kuba/Desktop/git/opengl-learning/lessons/5. Advanced Lighting/9. Deferred Shading/build/src/glml/CMakeFiles/glml.dir
+/home/kuba/Desktop/git/opengl-learning/lessons/5. Advanced Lighting/9. Deferred Shading/build/src/glfbo/CMakeFiles/rebuild_cache.dir
+/home/kuba/Desktop/git/opengl-learning/lessons/5. Advanced Lighting/9. Deferred Shading/build/src/glfbo/CMakeFiles/edit_cache.dir
+/home/kuba/Desktop/git/opengl-learning/lessons/5. Advanced Lighting/9. Deferred Shading/build/src/glfbo/CMakeFiles/glfbo.dir

@@ -31,7 +31,7 @@ if (MSVC)
 	)
 elseif (UNIX)
 	target_link_libraries("${PROJECT_NAME}"
-		glfw3
+		glfw
 		dl
 		m
 		Xi

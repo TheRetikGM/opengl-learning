@@ -1,0 +1,143 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"childIndexes" : 
+					[
+						1
+					],
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.13.4"
+					},
+					"projectIndex" : 0,
+					"source" : "."
+				},
+				{
+					"build" : "src",
+					"childIndexes" : 
+					[
+						2,
+						3
+					],
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.13.4"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 0,
+					"source" : "src",
+					"targetIndexes" : 
+					[
+						0,
+						3,
+						4
+					]
+				},
+				{
+					"build" : "src/glml",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.13.4"
+					},
+					"parentIndex" : 1,
+					"projectIndex" : 0,
+					"source" : "src/glml",
+					"targetIndexes" : 
+					[
+						2
+					]
+				},
+				{
+					"build" : "src/glfbo",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.13.4"
+					},
+					"parentIndex" : 1,
+					"projectIndex" : 0,
+					"source" : "src/glfbo",
+					"targetIndexes" : 
+					[
+						1
+					]
+				}
+			],
+			"name" : "Debug",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3
+					],
+					"name" : "main",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3,
+						4
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 1,
+					"id" : "camera::@145eef247bfb46b6828c",
+					"jsonFile" : "target-camera-Debug-e82d713d6619740cdc00.json",
+					"name" : "camera",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 3,
+					"id" : "glfbo::@8416380ead3f46844eeb",
+					"jsonFile" : "target-glfbo-Debug-2323168e298053b00798.json",
+					"name" : "glfbo",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 2,
+					"id" : "glml::@b259f45cfe4b29df8914",
+					"jsonFile" : "target-glml-Debug-fe0860e86f9ceaa3e5b5.json",
+					"name" : "glml",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 1,
+					"id" : "main::@145eef247bfb46b6828c",
+					"jsonFile" : "target-main-Debug-aecd704bd5a5e921ccb7.json",
+					"name" : "main",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 1,
+					"id" : "shader::@145eef247bfb46b6828c",
+					"jsonFile" : "target-shader-Debug-ff53f0831b130ba4a167.json",
+					"name" : "shader",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "/home/kuba/Desktop/git/opengl-learning/lessons/5. Advanced Lighting/9. Deferred Shading/build",
+		"source" : "/home/kuba/Desktop/git/opengl-learning/lessons/5. Advanced Lighting/9. Deferred Shading"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 2
+	}
+}

@@ -1,2 +1,0 @@
-/usr/bin/ar qc libglfbod.a CMakeFiles/glfbo.dir/ColorBuffer.cpp.o CMakeFiles/glfbo.dir/DepthBuffer.cpp.o CMakeFiles/glfbo.dir/StencilBuffer.cpp.o CMakeFiles/glfbo.dir/DepthStencilBuffer.cpp.o CMakeFiles/glfbo.dir/glfbo.cpp.o CMakeFiles/glfbo.dir/Framebuffer.cpp.o CMakeFiles/glfbo.dir/MSFramebuffer.cpp.o
-/usr/bin/ranlib libglfbod.a

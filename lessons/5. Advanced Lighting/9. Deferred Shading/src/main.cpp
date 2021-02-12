@@ -171,7 +171,7 @@ int main(int argc, char** argv)
 		if (cullFaces)
 			glEnable(GL_CULL_FACE);
 
-		#pragma region "1. Render pass: render to gBuffer framebuffer"
+		#pragma region 1. Render pass: render to gBuffer framebuffer
 		glViewport(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
 		glPolygonMode(GL_FRONT_AND_BACK, polygonMode);		
         glBindFramebuffer(GL_FRAMEBUFFER, gBuffer.ID);
@@ -182,13 +182,13 @@ int main(int argc, char** argv)
 		draw_scene(gBufferShader, false);
 		#pragma endregion
 
-		#pragma region "2. Render pass: render quad on screen using gBuffer textures"
-		glBindFramebuffer(GL_FRAMEBUFFER, 0);
-        glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		#pragma region 2. Render pass: render quad on screen using gBuffer textures
+		glBindFramebuffer(GL_FRAMEBUFFER, 0);		// bind default FB
+        glClearColor(1.0f, 1.0f, 1.0f, 1.0f);		// set clear color to white
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);	// clear depth color buffer
 		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-		glDisable(GL_DEPTH_TEST);
-		glDisable(GL_CULL_FACE);
+		glDisable(GL_DEPTH_TEST);	// disable depth test
+		glDisable(GL_CULL_FACE);	// disable culling faces
 
 		deferredQuadShader->Use();
 		deferredQuadShader->setInt("gBuffer.texture_position", 0);
@@ -213,6 +213,26 @@ int main(int argc, char** argv)
 		draw_quad();
 		#pragma endregion
 
+		#pragma region 3. Render pass: Render light cubes
+		glEnable(GL_DEPTH_TEST);
+		glBindFramebuffer(GL_READ_FRAMEBUFFER, gBuffer_Depth.ID);
+		glBindFramebuffer(GL_DRAW_FRAMEBUFFER, 0);
+		glBlitFramebuffer(0, 0, gBuffer_Depth.Width, gBuffer_Depth.Height, 0, 0, gBuffer_Depth.Width, gBuffer_Depth.Height, GL_DEPTH_BUFFER_BIT, GL_NEAREST);		
+		glm::mat4 model(1.0f);
+		glm::mat4 view = myCamera.getViewMatrix();
+		glm::mat4 projection = glm::perspective(glm::radians(myCamera.FOV),
+			WINDOW_WIDTH / (float)WINDOW_HEIGHT, 0.1f, 300.0f);
+		for (int i = 0; i < lights.size(); i++)
+		{
+			basicShader->Use();
+			model = glm::translate(glm::mat4(1.0f), lights[i].Position);
+			model = glm::scale(model, glm::vec3(0.1f));
+			basicShader->setMat4("PVM", projection * view * model);
+			basicShader->setVec3("Color", lights[i].Color);
+			draw_cube();
+		}
+		#pragma endregion		
+
 		glDisable(GL_FRAMEBUFFER_SRGB);
 
 		// check and calls events and swap the buffers
@@ -224,7 +244,9 @@ int main(int argc, char** argv)
 	glfwTerminate();	
 	delete(shader);
 	delete(quadShader);	
-	delete(basicShader);	
+	delete(basicShader);
+	delete(gBufferShader);
+	delete(deferredQuadShader);
 	delete(object);	
 
 	return 0;
@@ -261,20 +283,6 @@ void draw_scene(const Shader* shader, bool lightCube)
 		shader->setMat4("model", model);
 		shader->setMat3("normalMatrix", glm::transpose(glm::inverse(glm::mat3(model))));	
 		object->Draw(*shader);
-	}
-
-	
-	if (lightCube)
-	{
-		for (int i = 0; i < lights.size(); i++)
-		{
-			basicShader->Use();
-			model = glm::translate(glm::mat4(1.0f), lights[i].Position);
-			model = glm::scale(model, glm::vec3(0.1f));
-			basicShader->setMat4("PVM", projection * view * model);
-			basicShader->setVec3("Color", lights[i].Color);
-			draw_cube();
-		}
 	}
 }
 
@@ -334,7 +342,7 @@ void proccessInput(GLFWwindow* window)
 	{
 		if (printscreen_FBO)
 		{			
-			string s = (printscreen_FBO)->Export("", ImageType::PNG, 0);
+			string s = (printscreen_FBO)->Export("", ImageType::PNG, 2);
 			if (s.length() != 0)
 				std::cout << DC_INFO << " Screenshot saved to '" DC_MAGNETA BINARY_DIR "/" << s << DC_DEFAULT "'\n";
 			std::this_thread::sleep_for(std::chrono::milliseconds(1000));

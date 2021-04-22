@@ -6,9 +6,9 @@ mkdir lib
 mkdir models
 mkdir textures
 
-tar -xf libs.zip -C lib
-tar -xf models.zip -C models
-tar -xf textures.zip -C textures
+tar -xf libs.zip -C ./
+tar -xf models.zip -C ./
+tar -xf textures.zip -C ./
 
 del libs.zip
 del models.zip

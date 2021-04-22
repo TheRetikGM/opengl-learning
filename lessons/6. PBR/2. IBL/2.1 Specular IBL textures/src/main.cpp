@@ -17,7 +17,6 @@
 #include "glml/Model.h"
 #include "DebugColors.h"
 #include "glfbo.h"
-#define _INSTALL
 #include "config.h"	// in cmake build directory (need to run configure.sh first)
 #if _WIN32
 #include <Windows.h>

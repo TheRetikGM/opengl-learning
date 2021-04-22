@@ -1,0 +1,16 @@
+﻿  Building Custom Rule C:/Users/Kuba/Desktop/git/opengl-learning/lessons/6. PBR/2. IBL/2. Specular IBL/src/CMakeLists.txt
+  main.cpp
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\shared\minwindef.h(130,1): warning C4005: 'APIENTRY': macro redefinition
+C:\Users\Kuba\Desktop\git\opengl-learning\lessons\6. PBR\2. IBL\2. Specular IBL\..\..\..\..\include\glad/glad.h(32): message : see previous definition of 'APIENTRY'
+C:\Users\Kuba\Desktop\git\opengl-learning\lessons\6. PBR\2. IBL\2. Specular IBL\src\main.cpp(220,25): warning C4244: 'initializing': conversion from 'double' to 'unsigned int', possible loss of data
+C:\Users\Kuba\Desktop\git\opengl-learning\lessons\6. PBR\2. IBL\2. Specular IBL\src\main.cpp(221,26): warning C4244: 'initializing': conversion from 'double' to 'unsigned int', possible loss of data
+C:\Users\Kuba\Desktop\git\opengl-learning\lessons\6. PBR\2. IBL\2. Specular IBL\src\main.cpp(738,33): warning C4305: 'initializing': truncation from 'double' to 'float'
+C:\Users\Kuba\Desktop\git\opengl-learning\lessons\6. PBR\2. IBL\2. Specular IBL\src\main.cpp(776,30): warning C4267: '=': conversion from 'size_t' to 'unsigned int', possible loss of data
+C:\Users\Kuba\Desktop\git\opengl-learning\lessons\6. PBR\2. IBL\2. Specular IBL\src\main.cpp(803,51): warning C4244: 'argument': conversion from 'float' to 'GLsizei', possible loss of data
+C:\Users\Kuba\Desktop\git\opengl-learning\lessons\6. PBR\2. IBL\2. Specular IBL\src\main.cpp(805,51): warning C4244: 'argument': conversion from 'float' to 'GLsizei', possible loss of data
+C:\Users\Kuba\Desktop\git\opengl-learning\lessons\6. PBR\2. IBL\2. Specular IBL\src\main.cpp(807,51): warning C4244: 'argument': conversion from 'float' to 'GLsizei', possible loss of data
+  stb_image.cpp
+  stb_image_write.cpp
+  Generating Code...
+  glad.c
+  PBR-Lighting.vcxproj -> C:\Users\Kuba\Desktop\git\opengl-learning\lessons\6. PBR\2. IBL\2. Specular IBL\build1\src\Release\PBR-Lighting.exe

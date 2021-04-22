@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="C:\Users\Kuba\Desktop\git\opengl-learning\lessons\6. PBR\2. IBL\2. Specular IBL\src\glfbo\ColorBuffer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Kuba\Desktop\git\opengl-learning\lessons\6. PBR\2. IBL\2. Specular IBL\src\glfbo\DepthBuffer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Kuba\Desktop\git\opengl-learning\lessons\6. PBR\2. IBL\2. Specular IBL\src\glfbo\StencilBuffer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Kuba\Desktop\git\opengl-learning\lessons\6. PBR\2. IBL\2. Specular IBL\src\glfbo\DepthStencilBuffer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Kuba\Desktop\git\opengl-learning\lessons\6. PBR\2. IBL\2. Specular IBL\src\glfbo\glfbo.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Kuba\Desktop\git\opengl-learning\lessons\6. PBR\2. IBL\2. Specular IBL\src\glfbo\Framebuffer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Kuba\Desktop\git\opengl-learning\lessons\6. PBR\2. IBL\2. Specular IBL\src\glfbo\MSFramebuffer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="C:\Users\Kuba\Desktop\git\opengl-learning\lessons\6. PBR\2. IBL\2. Specular IBL\src\include\glfbo.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\Kuba\Desktop\git\opengl-learning\lessons\6. PBR\2. IBL\2. Specular IBL\src\glfbo\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{0E3A949B-8DAC-3195-A045-D6A3E6624694}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{1DDBB21C-47F2-3E87-BC12-DFFD5FC16D26}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

@@ -1,0 +1,15 @@
+C:/Users/Kuba/Desktop/git/opengl-learning/lessons/6. PBR/2. IBL/2. Specular IBL/build1/CMakeFiles/PACKAGE.dir
+C:/Users/Kuba/Desktop/git/opengl-learning/lessons/6. PBR/2. IBL/2. Specular IBL/build1/CMakeFiles/INSTALL.dir
+C:/Users/Kuba/Desktop/git/opengl-learning/lessons/6. PBR/2. IBL/2. Specular IBL/build1/CMakeFiles/ALL_BUILD.dir
+C:/Users/Kuba/Desktop/git/opengl-learning/lessons/6. PBR/2. IBL/2. Specular IBL/build1/CMakeFiles/ZERO_CHECK.dir
+C:/Users/Kuba/Desktop/git/opengl-learning/lessons/6. PBR/2. IBL/2. Specular IBL/build1/src/CMakeFiles/PBR-Lighting.dir
+C:/Users/Kuba/Desktop/git/opengl-learning/lessons/6. PBR/2. IBL/2. Specular IBL/build1/src/CMakeFiles/camera.dir
+C:/Users/Kuba/Desktop/git/opengl-learning/lessons/6. PBR/2. IBL/2. Specular IBL/build1/src/CMakeFiles/INSTALL.dir
+C:/Users/Kuba/Desktop/git/opengl-learning/lessons/6. PBR/2. IBL/2. Specular IBL/build1/src/CMakeFiles/shader.dir
+C:/Users/Kuba/Desktop/git/opengl-learning/lessons/6. PBR/2. IBL/2. Specular IBL/build1/src/CMakeFiles/PACKAGE.dir
+C:/Users/Kuba/Desktop/git/opengl-learning/lessons/6. PBR/2. IBL/2. Specular IBL/build1/src/glml/CMakeFiles/glml.dir
+C:/Users/Kuba/Desktop/git/opengl-learning/lessons/6. PBR/2. IBL/2. Specular IBL/build1/src/glml/CMakeFiles/PACKAGE.dir
+C:/Users/Kuba/Desktop/git/opengl-learning/lessons/6. PBR/2. IBL/2. Specular IBL/build1/src/glml/CMakeFiles/INSTALL.dir
+C:/Users/Kuba/Desktop/git/opengl-learning/lessons/6. PBR/2. IBL/2. Specular IBL/build1/src/glfbo/CMakeFiles/PACKAGE.dir
+C:/Users/Kuba/Desktop/git/opengl-learning/lessons/6. PBR/2. IBL/2. Specular IBL/build1/src/glfbo/CMakeFiles/glfbo.dir
+C:/Users/Kuba/Desktop/git/opengl-learning/lessons/6. PBR/2. IBL/2. Specular IBL/build1/src/glfbo/CMakeFiles/INSTALL.dir

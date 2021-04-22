@@ -1,0 +1,14 @@
+﻿  Building Custom Rule C:/Users/Kuba/Desktop/git/opengl-learning/lessons/6. PBR/2. IBL/2. Specular IBL/src/glfbo/CMakeLists.txt
+  ColorBuffer.cpp
+  DepthBuffer.cpp
+  StencilBuffer.cpp
+  DepthStencilBuffer.cpp
+  glfbo.cpp
+C:\Users\Kuba\Desktop\git\opengl-learning\lessons\6. PBR\2. IBL\2. Specular IBL\src\glfbo\glfbo.cpp(13,22): warning C4996: 'localtime': This function or variable may be unsafe. Consider using localtime_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  Framebuffer.cpp
+C:\Users\Kuba\Desktop\git\opengl-learning\lessons\6. PBR\2. IBL\2. Specular IBL\src\glfbo\Framebuffer.cpp(143,58): warning C4267: 'argument': conversion from 'size_t' to 'GLsizei', possible loss of data
+C:\Users\Kuba\Desktop\git\opengl-learning\lessons\6. PBR\2. IBL\2. Specular IBL\src\glfbo\Framebuffer.cpp(153,20): warning C4018: '>': signed/unsigned mismatch
+  MSFramebuffer.cpp
+C:\Users\Kuba\Desktop\git\opengl-learning\lessons\6. PBR\2. IBL\2. Specular IBL\src\glfbo\MSFramebuffer.cpp(132,20): warning C4018: '>': signed/unsigned mismatch
+  Generating Code...
+  glfbo.vcxproj -> C:\Users\Kuba\Desktop\git\opengl-learning\lessons\6. PBR\2. IBL\2. Specular IBL\build1\src\glfbo\Release\glfbo.lib

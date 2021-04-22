@@ -1,0 +1,86 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="C:\Users\Kuba\Desktop\git\opengl-learning\lessons\6. PBR\2. IBL\2. Specular IBL\src\main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Kuba\Desktop\git\opengl-learning\glad.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Kuba\Desktop\git\opengl-learning\stb_image.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Kuba\Desktop\git\opengl-learning\stb_image_write.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="C:\Users\Kuba\Desktop\git\opengl-learning\lessons\6. PBR\2. IBL\2. Specular IBL\src\include\DebugColors.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Kuba\Desktop\git\opengl-learning\lessons\6. PBR\2. IBL\2. Specular IBL\build1\src\config.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\Kuba\Desktop\git\opengl-learning\lessons\6. PBR\2. IBL\2. Specular IBL\src\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="C:\Users\Kuba\Desktop\git\opengl-learning\lessons\6. PBR\2. IBL\2. Specular IBL\src\shaders\basicShader.frag">
+      <Filter>shaders</Filter>
+    </None>
+    <None Include="C:\Users\Kuba\Desktop\git\opengl-learning\lessons\6. PBR\2. IBL\2. Specular IBL\src\shaders\basicShader.vert">
+      <Filter>shaders</Filter>
+    </None>
+    <None Include="C:\Users\Kuba\Desktop\git\opengl-learning\lessons\6. PBR\2. IBL\2. Specular IBL\src\shaders\brdfConvolution.frag">
+      <Filter>shaders</Filter>
+    </None>
+    <None Include="C:\Users\Kuba\Desktop\git\opengl-learning\lessons\6. PBR\2. IBL\2. Specular IBL\src\shaders\hdrToCubemap.frag">
+      <Filter>shaders</Filter>
+    </None>
+    <None Include="C:\Users\Kuba\Desktop\git\opengl-learning\lessons\6. PBR\2. IBL\2. Specular IBL\src\shaders\hdrToCubemap.vert">
+      <Filter>shaders</Filter>
+    </None>
+    <None Include="C:\Users\Kuba\Desktop\git\opengl-learning\lessons\6. PBR\2. IBL\2. Specular IBL\src\shaders\irradianceShader.frag">
+      <Filter>shaders</Filter>
+    </None>
+    <None Include="C:\Users\Kuba\Desktop\git\opengl-learning\lessons\6. PBR\2. IBL\2. Specular IBL\src\shaders\pbrShader.frag">
+      <Filter>shaders</Filter>
+    </None>
+    <None Include="C:\Users\Kuba\Desktop\git\opengl-learning\lessons\6. PBR\2. IBL\2. Specular IBL\src\shaders\pbrShader.vert">
+      <Filter>shaders</Filter>
+    </None>
+    <None Include="C:\Users\Kuba\Desktop\git\opengl-learning\lessons\6. PBR\2. IBL\2. Specular IBL\src\shaders\pbrShader_texture.frag">
+      <Filter>shaders</Filter>
+    </None>
+    <None Include="C:\Users\Kuba\Desktop\git\opengl-learning\lessons\6. PBR\2. IBL\2. Specular IBL\src\shaders\pbrShader_texture.vert">
+      <Filter>shaders</Filter>
+    </None>
+    <None Include="C:\Users\Kuba\Desktop\git\opengl-learning\lessons\6. PBR\2. IBL\2. Specular IBL\src\shaders\prefilterConvShader.frag">
+      <Filter>shaders</Filter>
+    </None>
+    <None Include="C:\Users\Kuba\Desktop\git\opengl-learning\lessons\6. PBR\2. IBL\2. Specular IBL\src\shaders\quadShader.frag">
+      <Filter>shaders</Filter>
+    </None>
+    <None Include="C:\Users\Kuba\Desktop\git\opengl-learning\lessons\6. PBR\2. IBL\2. Specular IBL\src\shaders\quadShader.vert">
+      <Filter>shaders</Filter>
+    </None>
+    <None Include="C:\Users\Kuba\Desktop\git\opengl-learning\lessons\6. PBR\2. IBL\2. Specular IBL\src\shaders\skyboxShader.frag">
+      <Filter>shaders</Filter>
+    </None>
+    <None Include="C:\Users\Kuba\Desktop\git\opengl-learning\lessons\6. PBR\2. IBL\2. Specular IBL\src\shaders\skyboxShader.vert">
+      <Filter>shaders</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{0E3A949B-8DAC-3195-A045-D6A3E6624694}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{1DDBB21C-47F2-3E87-BC12-DFFD5FC16D26}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="shaders">
+      <UniqueIdentifier>{4653CB43-877A-3314-B645-0C269F0B941D}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

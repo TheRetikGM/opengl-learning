@@ -11,5 +11,9 @@ lessons/5. Advanced Lighting/9. Deferred Shading/build/
 lessons/5. Advanced Lighting/10. SSAO/build/
 lessons/6. PBR/1. Lighting/build/
 lessons/6. PBR/2. IBL/1. Diffuse irradiance/build/
+lessons/6. PBR/2. IBL/2. Specular IBL/build/
+lessons/6. PBR/2. IBL/2.1 Specular IBL textures/build/
+lessons/7. In practise/1. Text rendering/build/
 lib/
 models/
+textures/

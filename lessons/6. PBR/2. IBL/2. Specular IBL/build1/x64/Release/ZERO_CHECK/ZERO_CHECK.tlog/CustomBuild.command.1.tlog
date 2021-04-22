@@ -1,0 +1,10 @@
+^C:\USERS\KUBA\DESKTOP\GIT\OPENGL-LEARNING\LESSONS\6. PBR\2. IBL\2. SPECULAR IBL\BUILD1\CMAKEFILES\9A2510D3793CF9113A3ECE916953FB5E\GENERATE.STAMP.RULE
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" "-SC:/Users/Kuba/Desktop/git/opengl-learning/lessons/6. PBR/2. IBL/2. Specular IBL" "-BC:/Users/Kuba/Desktop/git/opengl-learning/lessons/6. PBR/2. IBL/2. Specular IBL/build1" --check-stamp-list CMakeFiles/generate.stamp.list --vs-solution-file "C:/Users/Kuba/Desktop/git/opengl-learning/lessons/6. PBR/2. IBL/2. Specular IBL/build1/PBR-Lighting.sln"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd

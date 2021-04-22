@@ -1,0 +1,6 @@
+﻿  Building Custom Rule C:/Users/Kuba/Desktop/git/opengl-learning/lessons/6. PBR/2. IBL/2. Specular IBL/src/glml/CMakeLists.txt
+  Model.cpp
+  Mesh.cpp
+C:\Users\Kuba\Desktop\git\opengl-learning\lessons\6. PBR\2. IBL\2. Specular IBL\src\glml\Mesh.cpp(65,65): warning C4267: 'argument': conversion from 'size_t' to 'GLsizei', possible loss of data
+  Generating Code...
+  glml.vcxproj -> C:\Users\Kuba\Desktop\git\opengl-learning\lessons\6. PBR\2. IBL\2. Specular IBL\build1\src\glml\Release\glml.lib

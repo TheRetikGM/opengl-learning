@@ -2,15 +2,13 @@
 
 # This configuration is made for linux only!
 
-lib_arch=lib_arch.tar.gz
+gdown --id 122f9x8NI6Ujn459-S0f8SnoXCW6mqpzQ -O models.zip
+gdown --id 14VkfsiVsPu3t7SZuMo1usfRq3RDLYcYY -O textures.zip
 
-gdown --id 1ZpoCCa0VFwJoJOwLVYEop8_uKQO2XRCh -O $lib_arch
-gdown --id 1otyqcT-TohaHtv-rzguJn3lYCBBGXRVG -O models.zip
+mkdir models textures
 
-mkdir lib models
-
-tar -xzvf $lib_arch -C lib
 unzip models.zip -d models
+unzip textures.zip -d textures
 
-rm $lib_arch
+rm textures.zip
 rm models.zip

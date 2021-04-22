@@ -1,0 +1,13 @@
+#pragma once
+#ifndef _INSTALL
+#cmakedefine REPO_ROOT "@REPO_ROOT@"
+#cmakedefine PROJECT_DIR "@PROJECT_DIR@"
+#cmakedefine SOURCE_DIR "@SOURCE_DIR@"
+#cmakedefine BINARY_DIR "@BINARY_DIR@"
+#cmakedefine DEBUG
+#else
+#define REPO_ROOT ".."
+#define PROJECT_DIR ".."
+#define SOURCE_DIR "../src"
+#define BINARY_DIR "."
+#endif

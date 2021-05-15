@@ -7,8 +7,8 @@ gdown --id 14VkfsiVsPu3t7SZuMo1usfRq3RDLYcYY -O textures.zip
 
 mkdir models textures
 
-unzip models.zip -d models
-unzip textures.zip -d textures
+unzip models.zip -d ./
+unzip textures.zip -d ./
 
 rm textures.zip
 rm models.zip

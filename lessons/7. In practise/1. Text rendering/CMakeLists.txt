@@ -65,5 +65,6 @@ elseif (UNIX)
 		X11
 		GL
 		GLU
+		freetype
 	)
 endif()
